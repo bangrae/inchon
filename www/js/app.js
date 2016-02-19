@@ -32,6 +32,12 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
+  .state('a', {
+    url: '/a',
+    templateUrl: 'templates/a.html',
+    controller: 'aCtrl'
+  })
+
   .state('app.home', {
     url: '/home',
     views: {

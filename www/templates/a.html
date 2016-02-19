@@ -1,0 +1,13 @@
+
+<ion-view view-title="게시판">
+    <ion-content>
+     
+    <ion-list ng-controller="aCtrl">
+        <ion-item ng-repeat="item in items">
+            <h2>{{item.title}}</h2>
+            <p>{{item.name}} | {{item.date}}</p>
+        </ion-item>
+    </ion-list>
+     
+    </ion-content>
+</ion-view>

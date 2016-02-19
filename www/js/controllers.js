@@ -53,4 +53,23 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+})
+
+.controller('aCtrl', function($scope, $http){
+    $scope.items = new Array();
+    $http.get('http://192.168.10.113/inchon/a.php')
+        .success(function(data, status) {
+            var itemList = data;
+            for (var i = 0; i < itemList.length; i++) {
+                $scope.items.push( itemList[i] );
+            }
+            console.log("ok");
+            console.log(status);
+        })
+        .error(function(data, status) {
+            console.log("Error - getDataList");
+            console.log(status);
+        });
+})
+
+;
