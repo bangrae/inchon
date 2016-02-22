@@ -1,4 +1,10 @@
 {
   "name": "inchon",
-  "app_id": "e0bad0f1"
+  "app_id": "e0bad0f1",
+  "proxies": [
+    {
+      "path": "/whatever-api",
+      "proxyUrl": "http://api.whatever.io"
+    }
+  ]
 }

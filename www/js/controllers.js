@@ -63,13 +63,25 @@ angular.module('starter.controllers', [])
             for (var i = 0; i < itemList.length; i++) {
                 $scope.items.push( itemList[i] );
             }
-            console.log("ok");
+            console.log("ok" + status);
             console.log(status);
         })
         .error(function(data, status) {
-            console.log("Error - getDataList");
+            console.log("Error - getDataList " + status);
             console.log(status);
+            //console.log(JSON.stringify(err));
         });
 })
 
+.controller('iomCtrl', function($scope, Post){
+  console.log('here');
+  
+  $scope.posts = Post.query();
+
+  $scope.iomYear = {};
+  $scope.iomPost = function() {
+    var post = new Post($scope.iomYear);
+    conole.log(post);
+  }
+})
 ;

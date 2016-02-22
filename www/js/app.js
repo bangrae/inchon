@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngResource']) 
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -51,10 +51,21 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: '/startIom',
     views: {
       'menuContent': {
-        templateUrl: 'templates/iom01.html'
+        templateUrl: 'templates/iom01.html',
+        controller: 'iomCtrl'
       }
     }
   })  
+
+  .state('app.board', {
+    url: '/board',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/a.html',
+        controller: 'aCtrl'
+      }
+    }
+  })
 
   .state('app.search', {
     url: '/search',
@@ -94,4 +105,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
-});
+})
+
+.factory('Post', function($resource){
+  return $resource('/api/post');
+})
+;

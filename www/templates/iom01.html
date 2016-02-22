@@ -1,9 +1,9 @@
 <ion-view title="검침정보확인">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <form class="list">
+        <form class="list" ng-submit="iomPost" ng-controller="iomCtrl">
             <label class="item item-input">
                 <span class="input-label">검침년월</span>
-                <input type="text" placeholder="">
+                <input type="text" placeholder="" ng-model="iomYear.text">
             </label>
             <label class="item item-input">
                 <span class="input-label">검침차수</span>
@@ -27,7 +27,7 @@
             </label>
             <div class="button-bar">
                 <button class="button button-stable button-block ">종료</button>
-                <button class="button button-stable button-block ">송수신</button>
+                <button class="button button-stable button-block " type="submit">송수신</button>
                 <button class="button button-stable button-block ">시작</button>
             </div>
         </form>
