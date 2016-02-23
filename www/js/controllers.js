@@ -33,6 +33,9 @@ angular.module('starter.controllers', [])
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
 
+    var id = $scope.loginData.username;
+    console.log(id);
+
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
     $timeout(function() {
@@ -73,15 +76,14 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('iomCtrl', function($scope, Post){
-  console.log('here');
-  
-  $scope.posts = Post.query();
+.controller('iomCtrl', function($scope){
 
-  $scope.iomYear = {};
-  $scope.iomPost = function() {
-    var post = new Post($scope.iomYear);
-    conole.log(post);
+  $scope.doIomPost = function() {
+    var iomObj = $scope.iomData;
+    console.log('Doing Iom Post Ymd(' + iomObj.year + ') cha(' + iomObj.cha + ')');
+
+    $scope.iomData.year = '';
   }
 })
+
 ;

@@ -1,13 +1,13 @@
 <ion-view title="검침정보확인">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <form class="list" ng-submit="iomPost" ng-controller="iomCtrl">
+        <form class="list" ng-submit="doIomPost()" ng-controller="iomCtrl">
             <label class="item item-input">
                 <span class="input-label">검침년월</span>
-                <input type="text" placeholder="" ng-model="iomYear.text">
+                <input type="text" placeholder="" ng-model="iomData.year">
             </label>
             <label class="item item-input">
                 <span class="input-label">검침차수</span>
-                <input type="text" placeholder="">
+                <input type="text" placeholder="" ng-model="iomData.cha">
             </label>
             <label class="item item-input">
                 <span class="input-label">검침일자</span>
