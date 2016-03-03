@@ -1,0 +1,12 @@
+<ion-view view-title="사용자리스트">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+     
+    <ion-list ng-controller="loginListCtrl">
+        <ion-item ng-repeat="item in items">
+            <h2>{{item.name}}</h2>
+            <p>{{item.id}} | {{item.password}}</p>
+        </ion-item>
+    </ion-list>
+     
+    </ion-content>
+</ion-view>

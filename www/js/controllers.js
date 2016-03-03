@@ -11,6 +11,8 @@ angular.module('starter.controllers', [])
 
   // Form data for the login modal
   $scope.loginData = {};
+  $scope.loginBefore = true;
+  $scope.loginAfter = false;
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -34,7 +36,19 @@ angular.module('starter.controllers', [])
     console.log('Doing login', $scope.loginData);
 
     var id = $scope.loginData.username;
+    var pw = $scope.loginData.password;
+
+    if (id=='user' && pw == '1111') {
+      $scope.loginBefore = false;
+      $scope.loginAfter = true;
+
+      alert('login success ' + id);
+      window.localStorage.setItem("id", id);
+    } else {
+      $scope.loginData = {};
+    }
     console.log(id);
+
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
@@ -42,6 +56,15 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
+  $scope.doLogout = function() {
+    console.log('Doing logout');
+
+    $scope.loginData = {};
+    $scope.loginBefore = true;
+    $scope.loginAfter = false;
+  };
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -76,13 +99,41 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('iomCtrl', function($scope){
+.controller('loginListCtrl', function($scope, $http) {
+  $scope.items = new Array();
+  $http.get('http://192.168.10.113/inchon/login.php')
+    .success(function(data, status) {
+      var itemList = data;
+      for (var i = 0; i < itemList.length; i++) {
+        $scope.items.push(itemList[i]);
+      }
+      console.log("ok " + status);
+    })
+    .error(function(data, status) {
+      console.log("Error " + status);
+    });
+})
+
+.controller('iomCtrl', function($scope, $state){
 
   $scope.doIomPost = function() {
-    var iomObj = $scope.iomData;
-    console.log('Doing Iom Post Ymd(' + iomObj.year + ') cha(' + iomObj.cha + ')');
 
-    $scope.iomData.year = '';
+    if ($scope.loginData.username == '' || $scope.loginData.username == null) {
+      $scope.login();
+      return;
+    } else {
+      console.log('go Iom process');
+    }
+    var iomObj = $scope.iomData;
+
+    console.log('Iom Next ');
+    //console.log('Doing Iom Post Ymd(' + iomObj.year + ') cha(' + iomObj.cha + ')');
+
+    //$scope.iomData.year = '';
+
+    // app.board 페이지 load
+    //$state.go('app.board');
+    
   }
 })
 

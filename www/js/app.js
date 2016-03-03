@@ -104,6 +104,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngResource'])
     }
   })
 
+  .state('app.loginList', {
+    url: 'loginList',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/loginList.html',
+        controller: 'loginListCtrl'
+      }
+    }
+  })
+
   ;
   
   // if none of the above states are matched, use this as the fallback
