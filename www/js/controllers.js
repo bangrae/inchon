@@ -114,6 +114,24 @@ angular.module('starter.controllers', [])
     });
 })
 
+.controller('loginDetailCtrl', function($scope, $stateParams, $http) {
+  console.log("loginDetailCtrl in");
+  console.log($stateParams.loginInfo);
+  
+  var loginJson = $stateParams.loginInfo;
+  console.log("json=" + loginJson);
+
+  $scope.jsonItem = {};
+
+  $http.post("http://192.168.10.113/inchon/loginDetail.php", loginJson)
+    .then(function (res){
+            var itemList = res.data;
+            if (itemList.length > 0) {
+              $scope.jsonItem = itemList[0];
+            }        
+    });
+})
+
 .controller('iomCtrl', function($scope, $state){
 
   $scope.doIomPost = function() {

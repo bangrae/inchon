@@ -13,7 +13,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngResource'])
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -105,11 +104,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngResource'])
   })
 
   .state('app.loginList', {
-    url: 'loginList',
+    url: '/loginList',
     views: {
       'menuContent': {
         templateUrl: 'templates/loginList.html',
         controller: 'loginListCtrl'
+      }
+    }
+  })
+
+  .state('app.loginDetail', {
+    url: '/loginList/:loginInfo',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/loginDetail.html',
+        controller: 'loginDetailCtrl'
       }
     }
   })

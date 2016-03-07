@@ -2,7 +2,7 @@
     <ion-content overflow-scroll="true" padding="true" class="has-header">
      
     <ion-list ng-controller="loginListCtrl">
-        <ion-item ng-repeat="item in items">
+        <ion-item ng-repeat="item in items" href="#/app/loginList/{{item}}">
             <h2>{{item.name}}</h2>
             <p>{{item.id}} | {{item.password}}</p>
         </ion-item>
