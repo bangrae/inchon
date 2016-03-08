@@ -1,5 +1,24 @@
 <ion-view view-title="LoginDetail">
   <ion-content ng-controller="loginDetailCtrl">
-    <h1>{{jsonItem.name}}</h1>
+  	<form class="list" ng-submit="">
+  		<label class="item item-input">
+  			<span class="input-label">ID</span>
+  			<input type="text" placeholer="{{jsonItem.id}}" ng-model="jsonItem.id">
+  		</label>  		
+  		<label class="item item-input">
+  			<span class="input-label">이름</span>
+  			<input type="text" placeholer="{{jsonItem.name}}" ng-model="jsonItem.name">
+  		</label>
+  		<label class="item item-input">
+  			<span class="input-label">암호</span>
+  			<input type="text" placeholer="{{jsonItem.password}}" ng-model="jsonItem.password">
+  		</label>
+  		<div class="content has-header padding">
+		<div class="button-bar bar-positive padding">
+			<a class="button" ng-click="doLoginSave()">저장</a>
+			<a class="button" ng-click="doBack()">취소</a>
+		</div>    
+		</div>
+    </form>
   </ion-content>
 </ion-view>

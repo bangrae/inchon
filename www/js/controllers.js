@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicHistory) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -65,6 +65,9 @@ angular.module('starter.controllers', [])
     $scope.loginAfter = false;
   };
 
+  $scope.doBack = function() {
+    $ionicHistory.goBack();
+  }
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -130,6 +133,22 @@ angular.module('starter.controllers', [])
               $scope.jsonItem = itemList[0];
             }        
     });
+
+    $scope.doLoginSave = function() {
+      var jdata = $scope.jsonItem;
+
+      $http.post("http://192.168.10.113/inchon/loginDetailWrite.php", jdata)
+        .then(function (res) {
+          var itemList = res.data;
+
+          console.log(res.data);
+          console.log(itemList[0]);
+          
+          if (itemList.length > 0) {
+            console.log(itemList[0]);
+          }
+        });
+    }
 })
 
 .controller('iomCtrl', function($scope, $state){
