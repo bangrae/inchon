@@ -132,4 +132,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngResource'])
 .factory('Post', function($resource){
   return $resource('/api/post');
 })
+
+.factory('Scopes', function($rootScope) {
+    var mem = {};
+    return {
+        store: function(key, value) {
+             mem[key] = value;
+        },
+             get: function(key) {
+             return mem[key];
+         },
+         clear: function(key) {
+             mem[key] = null;
+        }
+    };
+})
 ;

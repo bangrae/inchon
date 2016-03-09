@@ -102,33 +102,36 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('loginListCtrl', function($scope, $http) {
+.controller('loginListCtrl', function(Scopes, $scope, $http) {
+  Scopes.store('loginListCtrl', $scope);
+  
   $scope.items = new Array();
-  $http.get('http://192.168.10.113/inchon/login.php')
-    .success(function(data, status) {
-      var itemList = data;
-      for (var i = 0; i < itemList.length; i++) {
-        $scope.items.push(itemList[i]);
-      }
-      console.log("ok " + status);
-    })
-    .error(function(data, status) {
-      console.log("Error " + status);
-    });
+  $scope.loadLoginInfo = function() {
+    $scope.items = new Array();
+    $http.get('http://192.168.10.113/inchon/login.php')
+      .success(function(data, status) {
+        var itemList = data;
+        for (var i = 0; i < itemList.length; i++) {
+          $scope.items.push(itemList[i]);
+        }
+      })
+      .error(function(data, status) {
+        console.log("Error " + status);
+      });
+    }
 })
 
-.controller('loginDetailCtrl', function($scope, $stateParams, $http) {
-  console.log("loginDetailCtrl in");
-  console.log($stateParams.loginInfo);
+.controller('loginDetailCtrl', function(Scopes, $scope, $stateParams, $http, $state, $ionicHistory) {
   
   var loginJson = $stateParams.loginInfo;
-  console.log("json=" + loginJson);
 
   $scope.jsonItem = {};
 
   $http.post("http://192.168.10.113/inchon/loginDetail.php", loginJson)
     .then(function (res){
             var itemList = res.data;
+            console.log('mesg1=' + res.data);
+            console.log('mesg2=' + itemList.name);
             if (itemList.length > 0) {
               $scope.jsonItem = itemList[0];
             }        
@@ -139,14 +142,22 @@ angular.module('starter.controllers', [])
 
       $http.post("http://192.168.10.113/inchon/loginDetailWrite.php", jdata)
         .then(function (res) {
-          var itemList = res.data;
+          var son = res.data;
 
           console.log(res.data);
-          console.log(itemList[0]);
-          
-          if (itemList.length > 0) {
-            console.log(itemList[0]);
+          console.log(son.mesg);
+
+          if (son.result == 0) {
+            alert(son.mesg);
           }
+          else {
+            alert(son.mesg);
+          }
+
+          // $state.go('app.loginList');  // 갱신없이 페이지 로딩
+          $state.go('app.loginList', null, {'reload':true});  // 페이지 리로딩
+          Scopes.get('loginListCtrl').loadLoginInfo();        // loginListCtrl의 함수를 call
+          Scopes.clear('loginListCtrl');
         });
     }
 })
