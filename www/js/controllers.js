@@ -9,6 +9,8 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
+  $scope.WebUrl = 'http://localhost:8080/inchon/';
+
   // Form data for the login modal
   $scope.loginData = {};
   $scope.loginBefore = true;
@@ -86,7 +88,7 @@ angular.module('starter.controllers', [])
 
 .controller('aCtrl', function($scope, $http){
     $scope.items = new Array();
-    $http.get('http://192.168.10.113/inchon/a.php')
+    $http.get($scope.WebUrl + 'inchon/a.php')
         .success(function(data, status) {
             var itemList = data;
             for (var i = 0; i < itemList.length; i++) {
@@ -108,7 +110,7 @@ angular.module('starter.controllers', [])
   $scope.items = new Array();
   $scope.loadLoginInfo = function() {
     $scope.items = new Array();
-    $http.get('http://192.168.10.113/inchon/login.php')
+    $http.get($scope.WebUrl + 'login.php')
       .success(function(data, status) {
         var itemList = data;
         for (var i = 0; i < itemList.length; i++) {
@@ -127,7 +129,7 @@ angular.module('starter.controllers', [])
 
   $scope.jsonItem = {};
 
-  $http.post("http://192.168.10.113/inchon/loginDetail.php", loginJson)
+  $http.post($scope.WebUrl + "loginDetail.php", loginJson)
     .then(function (res){
             var itemList = res.data;
             console.log('mesg1=' + res.data);
@@ -140,7 +142,7 @@ angular.module('starter.controllers', [])
     $scope.doLoginSave = function() {
       var jdata = $scope.jsonItem;
 
-      $http.post("http://192.168.10.113/inchon/loginDetailWrite.php", jdata)
+      $http.post($scope.WebUrl + "loginDetailWrite.php", jdata)
         .then(function (res) {
           var son = res.data;
 
