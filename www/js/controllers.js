@@ -69,7 +69,19 @@ angular.module('starter.controllers', [])
 
   $scope.doBack = function() {
     $ionicHistory.goBack();
+  };
+
+  $scope.leadingZeros = function(n, digits) {
+  var zero = '';
+  n = n.toString();
+
+  if (n.length < digits) {
+    for (i = 0; i < digits - n.length; i++)
+      zero += '0';
   }
+  return zero + n;
+  };
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -165,9 +177,32 @@ angular.module('starter.controllers', [])
 })
 
 .controller('iomCtrl', function($scope, $state){
+  $scope.data = {
+    year: [
+      {id: '1', name: '2015'},
+      {id: '2', name: '2016'},
+      {id: '3', name: '2017'}
+    ],
+    yearSelected: {id: '2', name: '2016'} //This sets the default value of the select in the ui
+  };
+
+  var month = [];
+  // 12월 까지의 select를 만들기 위하여
+  for (var i = 12 - 1; i >= 0; i--) {
+    m = {id: i+1, name:(i+1).toString()};
+    month[i] = m;
+  };
+  $scope.data["month"] = month;
+  var d = new Date();
+  // 현재달을 선택 하기 위하여
+  $scope.data["monthSelected"] = {id:d.getMonth()+1, name:(d.getMonth()+1).toString()};
+
+  // 검침일자(현재날짜)
+  $scope.nowDate = $scope.leadingZeros(d.getFullYear(),4) 
+        + '-' + $scope.leadingZeros(d.getMonth() + 1, 2) 
+        + '-' + $scope.leadingZeros(d.getDate(), 2);
 
   $scope.doIomPost = function() {
-
     if ($scope.loginData.username == '' || $scope.loginData.username == null) {
       $scope.login();
       return;
@@ -184,7 +219,7 @@ angular.module('starter.controllers', [])
     // app.board 페이지 load
     //$state.go('app.board');
     
-  }
+  } // function
 })
 
 ;
