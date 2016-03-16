@@ -144,8 +144,7 @@ angular.module('starter.controllers', [])
   $http.post($scope.WebUrl + "loginDetail.php", loginJson)
     .then(function (res){
             var itemList = res.data;
-            console.log('mesg1=' + res.data);
-            console.log('mesg2=' + itemList.name);
+            console.log(res.data);
             if (itemList.length > 0) {
               $scope.jsonItem = itemList[0];
             }        
@@ -159,7 +158,6 @@ angular.module('starter.controllers', [])
           var son = res.data;
 
           console.log(res.data);
-          console.log(son.mesg);
 
           if (son.result == 0) {
             alert(son.mesg);
@@ -173,34 +171,62 @@ angular.module('starter.controllers', [])
           Scopes.get('loginListCtrl').loadLoginInfo();        // loginListCtrl의 함수를 call
           Scopes.clear('loginListCtrl');
         });
-    }
+    };
 })
 
-.controller('iomCtrl', function($scope, $state){
-  $scope.data = {
+.controller('iomCtrl', function($scope, $state, $http){
+  // 선택된 항목들 정보
+  $scope.selectItem = {};
+
+  // item (년, 월, 차수 선택 아이템 리스트)
+  $scope.item = {
     year: [
       {id: '1', name: '2015'},
       {id: '2', name: '2016'},
       {id: '3', name: '2017'}
     ],
-    yearSelected: {id: '2', name: '2016'} //This sets the default value of the select in the ui
   };
 
+  // 선택된 연도 혹은 최초 설정 연도
+  $scope.selectItem["year"] = {id: '2', name: '2016'};
   var month = [];
   // 12월 까지의 select를 만들기 위하여
   for (var i = 12 - 1; i >= 0; i--) {
-    m = {id: i+1, name:(i+1).toString()};
+    m = {id: i+1, name:$scope.leadingZeros(i+1,2)};
     month[i] = m;
   };
-  $scope.data["month"] = month;
+
+  $scope.item["month"] = month;
   var d = new Date();
   // 현재달을 선택 하기 위하여
-  $scope.data["monthSelected"] = {id:d.getMonth()+1, name:(d.getMonth()+1).toString()};
+  $scope.selectItem["month"] = {id:d.getMonth()+1, name:$scope.leadingZeros(d.getMonth()+1, 2)};
+
+  //검침 차수
+  $scope.item["order"] =
+    [
+    {id: '1', name:'1차'},
+    {id: '2', name:'2차'},
+    {id: '3', name:'3차'}
+    ];
+  // 선택된 차수 혹은 최초 차수
+  $scope.selectItem["order"] = {id: '1', name:'1차'};
 
   // 검침일자(현재날짜)
   $scope.nowDate = $scope.leadingZeros(d.getFullYear(),4) 
         + '-' + $scope.leadingZeros(d.getMonth() + 1, 2) 
         + '-' + $scope.leadingZeros(d.getDate(), 2);
+
+  // db의 검침 초기 데이터를 읽어오는 함수
+  $scope.doIomInit = function() {
+    var jdata = $scope.selectItem;
+    console.log(jdata["year"].name);
+
+    $http.post($scope.WebUrl + "iom1.php", jdata)
+      .then(function (res) {
+        var son = res.data;
+        console.log(son);
+      });
+  };
 
   $scope.doIomPost = function() {
     if ($scope.loginData.username == '' || $scope.loginData.username == null) {
@@ -219,7 +245,9 @@ angular.module('starter.controllers', [])
     // app.board 페이지 load
     //$state.go('app.board');
     
-  } // function
+  }; // function
+
+
 })
 
 ;
