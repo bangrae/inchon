@@ -135,7 +135,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('loginDetailCtrl', function(Scopes, $scope, $stateParams, $http, $state, $ionicHistory) {
+.controller('loginDetailCtrl', function(Scopes, $scope, $http, $state) {
   
   var loginJson = $stateParams.loginInfo;
 
@@ -217,14 +217,20 @@ angular.module('starter.controllers', [])
         + '-' + $scope.leadingZeros(d.getDate(), 2);
 
   // db의 검침 초기 데이터를 읽어오는 함수
+  $scope.items = new Array();
   $scope.doIomInit = function() {
     var jdata = $scope.selectItem;
     console.log(jdata["year"].name);
 
-    $http.post($scope.WebUrl + "iom1.php", jdata)
+    $http.post($scope.WebUrl + "iom02.php", jdata)
       .then(function (res) {
-        var son = res.data;
-        console.log(son);
+        console.log(res.data);
+
+        var itemList = res.data;
+        for (var i = 0; i < itemList.length; i++) {
+          console.log('selcor_nm=' + itemList[i].SECTOR_NM);
+          $scope.items.push(itemList[i]);
+        }        
       });
   };
 

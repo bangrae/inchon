@@ -1,0 +1,45 @@
+<ion-view title="검침세대리스트">
+    <ion-content overflow-scroll="true" padding="true" class="has-header"> 
+        <form class="list" ng-controller="iomCtrl" ng-init="doIomInit()">
+            <label class="item item-input">
+                <span class="input-label">검침일자</span>
+                <input type="text" placeholder="" ng-model="nowDate">
+            </label>
+            <div><p>섹터필터</p></div>       
+
+            <div class="row header">
+                <div class="col col-67">섹터명</div>
+                <div class="col">대상</div>
+                <div class="col">검침</div>
+                <div class="col">미검</div>
+            </div>
+
+            <div class="row" ng-repeat="item in items" ui-sref="#/app/iom03/{{item.SECTOR_CD}}">
+                <div class="col col-67" ng-class="'color' + ($index % 2)">{{item.SECTOR_NM}}</div>
+                <div class="col" ng-class="'color' + ($index % 2)">{{item.S}}</div>
+                <div class="col" ng-class="'color' + ($index % 2)">{{item.O}}</div>
+                <div class="col" ng-class="'color' + ($index % 2)">{{item.N}}</div>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>
+<style type="text/css">
+.header .col {
+    background-color:lightgrey;
+}
+
+.col {
+    border: solid 1px white;
+    border-bottom-style: none;
+    border-right-style: none;
+} 
+
+.color0 {
+    background-color: lightyellow;
+}
+
+.color1 {
+    background-color: lightblue;
+}
+
+</style>

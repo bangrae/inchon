@@ -55,6 +55,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngResource'])
       }
     }
   })  
+  .state('app.iom02', {
+    url: '/iom02',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/iom02.html',
+        controller: 'iomCtrl'
+      }
+    }
+  })    
+
+  .state('app.iom03', {
+    url: '/iom02/:sector_id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/iom03.html',
+        controller: 'iomCtrl'
+      }
+    }
+  })  
 
   .state('app.board', {
     url: '/board',
