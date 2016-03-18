@@ -135,16 +135,17 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('loginDetailCtrl', function(Scopes, $scope, $http, $state) {
+.controller('loginDetailCtrl', function(Scopes, $scope, $http, $state, $stateParams) {
   
   var loginJson = $stateParams.loginInfo;
+  console.log('log==' + loginJson);
 
   $scope.jsonItem = {};
 
   $http.post($scope.WebUrl + "loginDetail.php", loginJson)
     .then(function (res){
             var itemList = res.data;
-            console.log(res.data);
+            //console.log(res.data);
             if (itemList.length > 0) {
               $scope.jsonItem = itemList[0];
             }        
@@ -157,7 +158,7 @@ angular.module('starter.controllers', [])
         .then(function (res) {
           var son = res.data;
 
-          console.log(res.data);
+          //console.log(res.data);
 
           if (son.result == 0) {
             alert(son.mesg);
@@ -174,7 +175,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('iomCtrl', function($scope, $state, $http){
+.controller('iomCtrl', function($scope, $state, $http, $stateParams){
   // 선택된 항목들 정보
   $scope.selectItem = {};
 
@@ -221,7 +222,7 @@ angular.module('starter.controllers', [])
   $scope.doIomInit = function() {
     var jdata = $scope.selectItem;
     console.log(jdata["year"].name);
-
+    $scope.secYM = jdata["year"].name + jdata["month"].name;
     $http.post($scope.WebUrl + "iom02.php", jdata)
       .then(function (res) {
         console.log(res.data);
@@ -233,6 +234,7 @@ angular.module('starter.controllers', [])
         }        
       });
   };
+
 
   $scope.doIomPost = function() {
     if ($scope.loginData.username == '' || $scope.loginData.username == null) {
@@ -252,8 +254,23 @@ angular.module('starter.controllers', [])
     //$state.go('app.board');
     
   }; // function
+})  // .controller('iomCtrl')
 
+.controller('iomCtrl3', function($scope, $state, $http, $stateParams){
+  var scd = $stateParams.sectorCD;
+  var snm = $stateParams.sectorNM;
+  var sym = $stateParams.secYM;
 
+  console.log('sectorInfo=' + scd + '&' + snm + '&' + sym);
+
+  $scope.sectorNm = snm;
+  $scope.sectorCd = scd;
+
+  $http.get($scope.WebUrl + "iom03.php?scd="+scd+'&sym='+sym)
+    .then(function (res) {
+      console.log('iomCtrl3=' + res.data);
+    });
 })
+
 
 ;

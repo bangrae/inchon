@@ -66,11 +66,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngResource'])
   })    
 
   .state('app.iom03', {
-    url: '/iom02/:sector_id',
+    url: '/iom03/:sectorCD?sectorNM?secYM',
     views: {
       'menuContent': {
         templateUrl: 'templates/iom03.html',
-        controller: 'iomCtrl'
+        controller: 'iomCtrl3'
       }
     }
   })  

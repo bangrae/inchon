@@ -1,11 +1,12 @@
 <ion-view title="검침세대리스트">
     <ion-content overflow-scroll="true" padding="true" class="has-header"> 
-        <form class="list" ng-controller="iomCtrl" ng-init="doIomInit()">
+        <form class="list" ng-controller="iomCtrl3">
             <label class="item item-input">
-                <span class="input-label">검침일자</span>
-                <input type="text" placeholder="" ng-model="nowDate">
+                {{sectorNm}}<br />{{sectorCd}}
             </label>
-            <div><p>섹터필터</p></div>       
+            <div>
+                <p></p>
+            </div>       
 
             <div class="row header">
                 <div class="col col-67">섹터명</div>

@@ -2,7 +2,7 @@
     <ion-content overflow-scroll="true" padding="true" class="has-header"> 
         <form class="list" ng-controller="iomCtrl" ng-init="doIomInit()">
             <label class="item item-input">
-                <span class="input-label">검침일자</span>
+                <span class="input-label">검침일자 {{secYM}}</span>
                 <input type="text" placeholder="" ng-model="nowDate">
             </label>
             <div><p>섹터필터</p></div>       
@@ -14,7 +14,7 @@
                 <div class="col">미검</div>
             </div>
 
-            <div class="row" ng-repeat="item in items" ui-sref="app.iom03({sector_id:item.SECTOR_CD})">
+            <div class="row" ng-repeat="item in items" ui-sref="app.iom03({sectorCD:item.SECTOR_CD, sectorNM:item.SECTOR_NM, secYM:secYM})" >
                 <div class="col col-67" ng-class="'color' + ($index % 2)">{{item.SECTOR_NM}}</div>
                 <div class="col" ng-class="'color' + ($index % 2)">{{item.S}}</div>
                 <div class="col" ng-class="'color' + ($index % 2)">{{item.O}}</div>
