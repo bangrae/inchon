@@ -1,6 +1,6 @@
-<ion-view title="검침세대리스트">
+<ion-view title="검침등록">
     <ion-content overflow-scroll="true" padding="true" class="has-header"> 
-        <form class="list" ng-controller="iomCtrl3">
+        <form class="list" ng-controller="iomCtrl4">
             <label class="item item-input">
                 {{sectorNm}}<br />{{sectorCd}}
             </label>
@@ -15,12 +15,6 @@
                 <div class="col">사용량</div>
             </div>
 
-            <div class="row" ng-repeat="item in items" ui-sref="app.iom04({iomCD:item.IOM_OJ_CD})">
-                <div class="col col-67" ng-class="'color' + ($index % 2)">{{item.SECTOR_NM}}<br \>{{item.addr}}</div>
-                <div class="col" ng-class="'color' + ($index % 2)">{{item.GAG}}</div>
-                <div class="col" ng-class="'color' + ($index % 2)">{{item.IOM_CD}}</div>
-                <div class="col" ng-class="'color' + ($index % 2)"></div>
-            </div>
         </form>
     </ion-content>
 </ion-view>

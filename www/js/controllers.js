@@ -221,15 +221,15 @@ angular.module('starter.controllers', [])
   $scope.items = new Array();
   $scope.doIomInit = function() {
     var jdata = $scope.selectItem;
-    console.log(jdata["year"].name);
+    //console.log(jdata["year"].name);
     $scope.secYM = jdata["year"].name + jdata["month"].name;
     $http.post($scope.WebUrl + "iom02.php", jdata)
       .then(function (res) {
-        console.log(res.data);
+        //console.log(res.data);
 
         var itemList = res.data;
         for (var i = 0; i < itemList.length; i++) {
-          console.log('selcor_nm=' + itemList[i].SECTOR_NM);
+          //console.log('selcor_nm=' + itemList[i].SECTOR_NM);
           $scope.items.push(itemList[i]);
         }        
       });
@@ -261,16 +261,34 @@ angular.module('starter.controllers', [])
   var snm = $stateParams.sectorNM;
   var sym = $stateParams.secYM;
 
-  console.log('sectorInfo=' + scd + '&' + snm + '&' + sym);
+  //console.log('sectorInfo=' + scd + '&' + snm + '&' + sym);
 
   $scope.sectorNm = snm;
   $scope.sectorCd = scd;
+  $scope.items = new Array();
 
   $http.get($scope.WebUrl + "iom03.php?scd="+scd+'&sym='+sym)
     .then(function (res) {
-      console.log('iomCtrl3=' + res.data);
+      //console.log('iomCtrl3=' + res.data);
+      var itemList = res.data;
+      for (var i = 0; i < itemList.length; i++) {
+        //console.log(itemList[i].SECTOR_NM + '_' + itemList[i].addr);
+        $scope.items.push(itemList[i]);
+      }
     });
 })
 
+.controller('iomCtrl4', function($scope, $state, $http, $stateParams){
+  var iomCD = $stateParams.iomCD;
+
+  console.log('iomOJCD=' + iomCD);
+
+  $scope.items = new Array();
+  
+  $http.get($scope.WebUrl + "iom04.php?iomcd="+iomCD)
+    .then(function (res) {
+      console.log('iomCtrl4=' + res.data);
+    });
+})
 
 ;
