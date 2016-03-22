@@ -280,14 +280,36 @@ angular.module('starter.controllers', [])
 
 .controller('iomCtrl4', function($scope, $state, $http, $stateParams){
   var iomCD = $stateParams.iomCD;
+  
+  $scope.sitem = {};
+  $scope.sitems = {};
 
-  console.log('iomOJCD=' + iomCD);
+  //검침 구분
+  $scope.sitems["iomod"] =
+    [
+    {id: '1', name:'방문검침'},
+    {id: '2', name:'고객검침'}
+    ];
+  $scope.sitem["iomod"] = {id: '1', name:'방문검침'};
+
+  //검침 코드
+  $scope.sitems["iomcd"] =
+    [
+    {id: '1', name:'정상'},
+    {id: '2', name:'인정고지'},
+    {id: '3', name:'GM교체'},
+    {id: '4', name:'회전교체'}
+    ];
+  $scope.sitem["iomcd"] = {id: '1', name:'정상'};
 
   $scope.items = new Array();
   
-  $http.get($scope.WebUrl + "iom04.php?iomcd="+iomCD)
+  $http.get($scope.WebUrl + "iom04R.php?iomcd="+iomCD)
     .then(function (res) {
-      console.log('iomCtrl4=' + res.data);
+      console.log('iomCtrl4=' + res.data[0].nbr);
+      if (res.data.length > 0) {
+        $scope.item = res.data[0];
+      }
     });
 })
 
