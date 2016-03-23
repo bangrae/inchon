@@ -279,8 +279,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('iomCtrl4', function($scope, $state, $http, $stateParams){
-  var iomCD = $stateParams.iomCD;
-  
+  var iomYM = $stateParams.iomYM;
+  var custCD = $stateParams.custCD;
+
   $scope.sitem = {};
   $scope.sitems = {};
 
@@ -302,15 +303,100 @@ angular.module('starter.controllers', [])
     ];
   $scope.sitem["iomcd"] = {id: '1', name:'정상'};
 
-  $scope.items = new Array();
-  
-  $http.get($scope.WebUrl + "iom04R.php?iomcd="+iomCD)
+  $scope.item = new Array();
+  $scope.lMonItems = new Array();
+
+  // 검침값 초기화.. (ajax로 인하여 늦게 결과를 가져오기 때문에)
+  var ngag = 0;
+  var bgag = 0;
+  $scope.nused = 0;
+
+  $http.get($scope.WebUrl + "iom04R.php?iomym="+iomYM+"&custcd="+custCD)
     .then(function (res) {
-      console.log('iomCtrl4=' + res.data[0].nbr);
+      //console.log('iomCtrl4=' + res.data[0].nbr);
       if (res.data.length > 0) {
         $scope.item = res.data[0];
+        ngag = res.data[0].GAG;
+
+        // 검침구분과 검침코드의 콤보박스 아이템을 적용 하기 위하여
+        $scope.sitem["iomod"] = $scope.sitems["iomod"][res.data[0].IOM_OD - 1];
+        $scope.sitem["iomcd"] = $scope.sitems["iomcd"][res.data[0].IOM_CD - 1];
+
+        $scope.nused = naga = bgag;
+      } else {
       }
-    });
+    }
+  );
+
+  // 이전 월을 구하여 이전 검침 자료를 가져오기
+  var year = iomYM.substring(0,4);
+  var mon = iomYM.substring(4,6);
+
+  var y = new Date();
+
+  y.setYear(year);
+  y.setMonth(mon);
+  y.setMonth(y.getMonth()-2);
+
+  year = $scope.leadingZeros(y.getFullYear(), 4);
+  mon = $scope.leadingZeros(y.getMonth() + 1, 2);
+
+  $http.get($scope.WebUrl + "iom04R.php?iomym="+year+mon+"&custcd="+custCD)
+    .then(function (res) {
+      //console.log('iomCtrl4=' + res.data[0].nbr);
+      if (res.data.length > 0) {
+        $scope.lMonItems = res.data[0];
+        bgag = res.data[0].GAG;
+        $scope.nused = naga = bgag;
+      } else {
+        $scope.lMonItems["GAG"] = 0;
+      }      
+    }
+  );
+
+  // 사용량 계산을 위해..
+  $scope.parseInt = parseInt;
+  // iom04.html 페이지 로딩시 처리 끝 --------------
+
+
+  // 검침량 저장 이벤트
+  $scope.doSaveIOM = function() {
+    var iomObj = $scope.item;
+    var sitem = $scope.sitem;
+
+    console.log('Iom Next ');
+    console.log('GAG=' + iomObj["GAG"]);
+    console.log('OD=' + sitem["iomod"].name);
+    console.log('CD=' + sitem["iomcd"].name);
+
+    var pval = {};
+    pval["IOM_OJ_CD"] = iomObj["IOM_OJ_CD"];
+    pval["GAG"] = iomObj["GAG"];
+    pval["IOM_OD"] = sitem["iomod"].id;
+    pval["IOM_CD"] = sitem["iomcd"].id;
+
+    $http.post($scope.WebUrl + "iom04W.php", pval)
+      .then(function (res) {
+        var son = res.data;
+
+        console.log(res.data);
+
+        if (son.result == 0) {
+          alert(son.mesg);
+        }
+        else {
+          alert(son.mesg);
+        }
+
+        // $state.go('app.loginList');  // 갱신없이 페이지 로딩
+//        $state.go('app.loginList', null, {'reload':true});  // 페이지 리로딩
+//        Scopes.get('loginListCtrl').loadLoginInfo();        // loginListCtrl의 함수를 call
+//        Scopes.clear('loginListCtrl');
+      }
+    );  // post
+
+  }; // function
+
 })
 
 ;

@@ -15,7 +15,7 @@
                 <div class="col">사용량</div>
             </div>
 
-            <div class="row" ng-repeat="item in items" ui-sref="app.iom04({iomCD:item.IOM_OJ_CD})">
+            <div class="row" ng-repeat="item in items" ui-sref="app.iom04({iomYM:item.IOM_YM, custCD:item.CUST_CD})">
                 <div class="col col-67" ng-class="'color' + ($index % 2)">{{item.SECTOR_NM}}<br \>{{item.addr}}</div>
                 <div class="col" ng-class="'color' + ($index % 2)">{{item.GAG}}</div>
                 <div class="col" ng-class="'color' + ($index % 2)">{{item.IOM_CD}}</div>

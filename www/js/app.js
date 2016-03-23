@@ -76,7 +76,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngResource'])
   })  
 
   .state('app.iom04', {
-    url: '/iom04/:iomCD',
+    url: '/iom04/:iomYM?custCD',
     views: {
       'menuContent': {
         templateUrl: 'templates/iom04.html',
