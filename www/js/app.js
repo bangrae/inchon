@@ -46,6 +46,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngResource'])
     }
   })
 
+  // 검침 업무 시작 ----------------------------
   .state('app.startIom', {
     url: '/startIom',
     views: {
@@ -84,6 +85,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngResource'])
       }
     }
   })  
+  // 검침 업무 끝 ------------------------------
+
+  // 고객 정보 --------------------------------
+  .state('app.custDetail', {
+    url: '/custDetail/:custCD',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/custDetail.html',
+        controller: 'custCtrl'
+      }
+    }
+  })    
 
   .state('app.board', {
     url: '/board',

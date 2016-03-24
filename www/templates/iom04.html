@@ -52,7 +52,15 @@
                 <div class="col">자동이체</div>                             
             </div>
             <button class="button button-stable button-block " ng-click="doSaveIOM()">저장</button>
-
+            
+            <hr />
+            <div class="button-bar">
+                <button class="button button-stable button-block " ui-sref="app.custDetail({custCD:item.CUST_CD})">고객</button>
+                <button class="button button-stable button-block">계량기</button>
+                <button class="button button-stable button-block">계산</button>
+                <button class="button button-stable button-block">요금</button>
+                <button class="button button-stable button-block">미납</button>
+            </div>            
         </form>
     </ion-content>
 </ion-view>
@@ -66,7 +74,7 @@
     border-bottom-style: none;
     border-right-style: none;
 } 
-
+IO
 .color0 {
     background-color: lightyellow;
 }

@@ -175,6 +175,7 @@ angular.module('starter.controllers', [])
     };
 })
 
+// 검침 업무 시작 -----------------------------------------------------------------
 .controller('iomCtrl', function($scope, $state, $http, $stateParams){
   // 선택된 항목들 정보
   $scope.selectItem = {};
@@ -278,7 +279,7 @@ angular.module('starter.controllers', [])
     });
 })
 
-.controller('iomCtrl4', function($scope, $state, $http, $stateParams){
+.controller('iomCtrl4', function($scope, $state, $http, $stateParams, $ionicHistory){
   var iomYM = $stateParams.iomYM;
   var custCD = $stateParams.custCD;
 
@@ -388,15 +389,35 @@ angular.module('starter.controllers', [])
           alert(son.mesg);
         }
 
+        $ionicHistory.goBack(-1);
         // $state.go('app.loginList');  // 갱신없이 페이지 로딩
-//        $state.go('app.loginList', null, {'reload':true});  // 페이지 리로딩
+//        $state.go('app.iom03', null, {'reload':true});  // 페이지 리로딩
 //        Scopes.get('loginListCtrl').loadLoginInfo();        // loginListCtrl의 함수를 call
 //        Scopes.clear('loginListCtrl');
       }
     );  // post
+  }; // doSaveIOM function
 
-  }; // function
 
+})  // iomCtrl4
+// 검침 업무 끝 -----------------------------------------------------------------
+
+// 고객정보 -----------------------------------------------------------------
+.controller('custCtrl', function(Scopes, $scope, $http, $state, $stateParams) {
+  
+  var custCD = $stateParams.custCD;
+  console.log('log==' + custCD);
+
+  $scope.jsonItem = {};
+
+  $http.get($scope.WebUrl + "custDetail.php", custCD)
+    .then(function (res){
+        var itemList = res.data;
+        //console.log(res.data);
+        if (itemList.length > 0) {
+          $scope.jsonItem = itemList[0];
+        }
+    });
 })
 
 ;

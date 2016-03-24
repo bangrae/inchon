@@ -1,0 +1,74 @@
+<ion-view title="고객정보조회">
+    <ion-content overflow-scroll="true" padding="true" class="has-header"> 
+        <form class="list" ng-controller="custCtrl">
+            <label class="item item-input">
+                {{item.SECTOR_NM}}<br />
+                {{item.ADDR}}
+            </label>
+            <div>
+                <p></p>
+            </div>       
+
+            <div class="row">
+                <div class="col">주민번호</div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">이름</div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">전화번호</div>
+                <div class="col">{{lMonItems.GAG}}</div>                             
+            </div>
+            <div class="row">
+                <div class="col">휴대번호</div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">E-Mail</div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">납부방법</div>
+                <div class="col">자동이체</div>
+            </div>
+            <div class="row">
+                <div class="col">용도구분</div>
+                <div class="col">개별난방</div>
+            </div>
+            <div class="row">
+                <div class="col">최초공급</div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">고객상태</div>
+                <div class="col">공급중</div>
+            </div>
+
+            <hr />
+
+            <button class="button button-stable button-block " ng-click="doSaveIOM()">확인</button>         
+        </form>
+    </ion-content>
+</ion-view>
+<style type="text/css">
+.row .col:first-child {
+    background-color:lightgrey;
+}
+
+.col {
+    border: solid 1px white;
+    border-bottom-style: none;
+    border-right-style: none;
+} 
+IO
+.color0 {
+    background-color: lightyellow;
+}
+
+.color1 {
+    background-color: lightblue;
+}
+
+</style>
