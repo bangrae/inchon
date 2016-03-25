@@ -2,8 +2,8 @@
     <ion-content overflow-scroll="true" padding="true" class="has-header"> 
         <form class="list" ng-controller="custCtrl">
             <label class="item item-input">
-                {{item.SECTOR_NM}}<br />
-                {{item.ADDR}}
+                {{jsonItem.SECTOR_NM}}<br />
+                {{jsonItem.ADDR}}
             </label>
             <div>
                 <p></p>
@@ -15,19 +15,19 @@
             </div>
             <div class="row">
                 <div class="col">이름</div>
-                <div class="col"></div>
+                <div class="col">{{jsonItem.CUST_NM}}</div>
             </div>
             <div class="row">
                 <div class="col">전화번호</div>
-                <div class="col">{{lMonItems.GAG}}</div>                             
+                <div class="col">{{jsonItem.TEL2}}</div>                             
             </div>
             <div class="row">
                 <div class="col">휴대번호</div>
-                <div class="col"></div>
+                <div class="col">{{jsonItem.TEL1}}</div>
             </div>
             <div class="row">
                 <div class="col">E-Mail</div>
-                <div class="col"></div>
+                <div class="col">{{jsonItem.MAIL}}</div>
             </div>
             <div class="row">
                 <div class="col">납부방법</div>
@@ -48,7 +48,7 @@
 
             <hr />
 
-            <button class="button button-stable button-block " ng-click="doSaveIOM()">확인</button>         
+            <button class="button button-stable button-block " ng-click="doBack()">확인</button>         
         </form>
     </ion-content>
 </ion-view>

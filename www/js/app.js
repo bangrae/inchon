@@ -98,6 +98,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngResource'])
     }
   })    
 
+  // 계량기 정보 -------------------------------
+  .state('app.meter', {
+    url: '/meter',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/meter.html'
+      }
+    }
+  })    
+
   .state('app.board', {
     url: '/board',
     views: {

@@ -410,12 +410,13 @@ angular.module('starter.controllers', [])
 
   $scope.jsonItem = {};
 
-  $http.get($scope.WebUrl + "custDetail.php", custCD)
+  $http.get($scope.WebUrl + "custDetail.php?custcd="+custCD)
     .then(function (res){
         var itemList = res.data;
         //console.log(res.data);
         if (itemList.length > 0) {
           $scope.jsonItem = itemList[0];
+          console.log('<-' + itemList[0].CUST_NM);
         }
     });
 })
