@@ -57,12 +57,31 @@
             <div class="button-bar">
                 <button class="button button-stable button-block " ui-sref="app.custDetail({custCD:item.CUST_CD})">고객</button>
                 <button class="button button-stable button-block" ui-sref="app.meter">계량기</button>
-                <button class="button button-stable button-block">계산</button>
-                <button class="button button-stable button-block">요금</button>
+                <button class="button button-stable button-block" ng-click="openModal()">계산</button>
                 <button class="button button-stable button-block">미납</button>
             </div>            
         </form>
     </ion-content>
+    <script id="my-modal.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <h1 class="title">요금 계산 조회</h1>
+            </ion-header-bar>
+            <ion-content>
+                <label class="item item-input">
+                    <div class="row">
+                        <div class="col">사용요금</div>
+                        <div class="col">56200</div>
+                    </div>
+                </label>
+                <br />
+                <div>
+                본 사용요금은 고객에게 안내하기 위한 참고 정보이며 상세한 요금은 고객서비스센터로 확인하시기 바랍니다.
+                </div>
+                <p><button class="button button-full" ng-click="closeModal()">확인</button></p>
+            </ion-content>
+        </ion-modal-view>
+    </script>    
 </ion-view>
 <style type="text/css">
 .header .col {
@@ -74,7 +93,6 @@
     border-bottom-style: none;
     border-right-style: none;
 } 
-IO
 .color0 {
     background-color: lightyellow;
 }

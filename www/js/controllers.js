@@ -279,7 +279,7 @@ angular.module('starter.controllers', [])
     });
 })
 
-.controller('iomCtrl4', function($scope, $state, $http, $stateParams, $ionicHistory){
+.controller('iomCtrl4', function($scope, $state, $http, $stateParams, $ionicHistory, $ionicModal){
   var iomYM = $stateParams.iomYM;
   var custCD = $stateParams.custCD;
 
@@ -398,7 +398,19 @@ angular.module('starter.controllers', [])
     );  // post
   }; // doSaveIOM function
 
-
+  // 요금정보 팝업(모달) 시작
+  $ionicModal.fromTemplateUrl('my-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };  
 })  // iomCtrl4
 // 검침 업무 끝 -----------------------------------------------------------------
 
