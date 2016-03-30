@@ -214,9 +214,15 @@ angular.module('starter.controllers', [])
   $scope.selectItem["order"] = {id: '1', name:'1차'};
 
   // 검침일자(현재날짜)
-  $scope.nowDate = $scope.leadingZeros(d.getFullYear(),4) 
-        + '-' + $scope.leadingZeros(d.getMonth() + 1, 2) 
-        + '-' + $scope.leadingZeros(d.getDate(), 2);
+//  $scope.nowDate = $scope.leadingZeros(d.getFullYear(),4) 
+//        + '-' + $scope.leadingZeros(d.getMonth() + 1, 2) 
+//        + '-' + $scope.leadingZeros(d.getDate(), 2);
+
+//  $scope.nowDate = $scope.leadingZeros(d.getMonth() + 1, 2) 
+//        + '-' + $scope.leadingZeros(d.getDate(), 2)
+//        + '-' + $scope.leadingZeros(d.getFullYear(),4)
+
+  $scope.nowDate = new Date();
 
   // db의 검침 초기 데이터를 읽어오는 함수
   $scope.items = new Array();
@@ -323,7 +329,7 @@ angular.module('starter.controllers', [])
         $scope.sitem["iomod"] = $scope.sitems["iomod"][res.data[0].IOM_OD - 1];
         $scope.sitem["iomcd"] = $scope.sitems["iomcd"][res.data[0].IOM_CD - 1];
 
-        $scope.nused = naga = bgag;
+        //$scope.nused = naga - bgag;
       } else {
       }
     }
@@ -333,14 +339,19 @@ angular.module('starter.controllers', [])
   var year = iomYM.substring(0,4);
   var mon = iomYM.substring(4,6);
 
-  var y = new Date();
+  var y = new Date('2016-01-01');
 
   y.setYear(year);
-  y.setMonth(mon);
-  y.setMonth(y.getMonth()-2);
+  y.setMonth(parseInt(mon)-1);
+
+//  console.log('입력='+y.getFullYear() + '-' + $scope.leadingZeros(y.getMonth()+1,2));
+
+  y.setMonth(y.getMonth()-1);
+
+//  console.log('전월='+y.getFullYear() + '-' + $scope.leadingZeros(y.getMonth()+1,2));
 
   year = $scope.leadingZeros(y.getFullYear(), 4);
-  mon = $scope.leadingZeros(y.getMonth() + 1, 2);
+  mon = $scope.leadingZeros(y.getMonth()+1, 2);
 
   $http.get($scope.WebUrl + "iom04R.php?iomym="+year+mon+"&custcd="+custCD)
     .then(function (res) {
@@ -348,7 +359,8 @@ angular.module('starter.controllers', [])
       if (res.data.length > 0) {
         $scope.lMonItems = res.data[0];
         bgag = res.data[0].GAG;
-        $scope.nused = naga = bgag;
+        $scope.nused = naga - bgag;
+        console.log(bgag);
       } else {
         $scope.lMonItems["GAG"] = 0;
       }      

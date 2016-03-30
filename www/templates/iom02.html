@@ -2,8 +2,8 @@
     <ion-content overflow-scroll="true" padding="true" class="has-header"> 
         <form class="list" ng-controller="iomCtrl" ng-init="doIomInit()">
             <label class="item item-input">
-                <span class="input-label">검침일자 {{secYM}}</span>
-                <input type="text" placeholder="" ng-model="nowDate">
+                <span class="input-label">검침일자</span>
+                <span>{{nowDate | date: "yyyy-MM-dd"}}</span>
             </label>
             <div><p>섹터필터</p></div>       
 
