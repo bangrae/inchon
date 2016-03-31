@@ -100,7 +100,7 @@ angular.module('starter.controllers', [])
 
 .controller('aCtrl', function($scope, $http){
     $scope.items = new Array();
-    $http.get($scope.WebUrl + 'inchon/a.php')
+    $http.get($scope.WebUrl + 'a.php')
         .success(function(data, status) {
             var itemList = data;
             for (var i = 0; i < itemList.length; i++) {
