@@ -339,6 +339,7 @@ angular.module('starter.controllers', [])
   var year = iomYM.substring(0,4);
   var mon = iomYM.substring(4,6);
 
+  // new Dade() 사용시 해당 전월과 당월의 날짜수가 다를경우 오동작.. (년, 월만 재설정 하므로)
   var y = new Date('2016-01-01');
 
   y.setYear(year);
