@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.WebUrl = 'http://localhost:8080/inchon/';
+  $scope.WebUrl = 'http://192.168.10.155:8080/inchon/';
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -191,6 +191,8 @@ angular.module('starter.controllers', [])
 
   // 선택된 연도 혹은 최초 설정 연도
   $scope.selectItem["year"] = {id: '2', name: '2016'};
+
+
   var month = [];
   // 12월 까지의 select를 만들기 위하여
   for (var i = 12 - 1; i >= 0; i--) {
@@ -228,11 +230,12 @@ angular.module('starter.controllers', [])
   $scope.items = new Array();
   $scope.doIomInit = function() {
     var jdata = $scope.selectItem;
-    //console.log(jdata["year"].name);
+    console.log(jdata["year"].name + jdata["month"].name);
+
     $scope.secYM = jdata["year"].name + jdata["month"].name;
     $http.post($scope.WebUrl + "iom02.php", jdata)
       .then(function (res) {
-        //console.log(res.data);
+        //console.log(jdata);
 
         var itemList = res.data;
         for (var i = 0; i < itemList.length; i++) {
@@ -360,7 +363,7 @@ angular.module('starter.controllers', [])
       if (res.data.length > 0) {
         $scope.lMonItems = res.data[0];
         bgag = res.data[0].GAG;
-        $scope.nused = naga - bgag;
+        $scope.nused = ngag - bgag;
         console.log(bgag);
       } else {
         $scope.lMonItems["GAG"] = 0;
